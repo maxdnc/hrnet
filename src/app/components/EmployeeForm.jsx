@@ -14,6 +14,7 @@ const EmployeeForm = () => {
   const { formData, setFormData, resetFormData } = useFormStore();
   const { addEmployee } = useEmployeeStore();
   const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,14 +23,18 @@ const EmployeeForm = () => {
   };
 
   const handleSubmit = (e) => {
+    setIsLoading(true);
     e.preventDefault();
     const newErrors = validateEmployeeForm(formData);
     setErrors(newErrors);
     if (isFormValid(newErrors)) {
       addEmployee(formData);
       resetFormData();
+      setErrors({});
     }
+    setIsLoading(false);
   };
+
   const handleReset = () => {
     resetFormData();
     setErrors({});
@@ -119,7 +124,11 @@ const EmployeeForm = () => {
         error={errors.department}
       />
       <div className="mt-6 flex gap-4 ">
-        <PrimaryButton type="submit" label="Save" className={'w-full'} />
+        <PrimaryButton
+          type="submit"
+          label={isLoading ? 'Saving...' : 'Save'}
+          className={'w-full'}
+        />
         <PrimaryButton
           type="button"
           label="Reset"
