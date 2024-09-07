@@ -3,9 +3,9 @@ import {
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
-  SortingState,
   useReactTable,
   getSortedRowModel,
+  getFilteredRowModel,
 } from '@tanstack/react-table';
 
 import {
@@ -19,28 +19,43 @@ import {
 import PrimaryButton from '../components/PrimaryButton';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
+import FormField from '../components/FormField';
 
 export function DataTable({ columns, data }) {
   const [sorting, setSorting] = useState([]);
   const [pageSize, setPageSize] = useState(5);
+  const [globalFilter, setGlobalFilter] = useState('');
 
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     initialState: { pagination: { pageSize } },
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    globalFilterFn: 'includesString',
     state: {
       sorting,
+      globalFilter,
     },
+    onGlobalFilterChange: setGlobalFilter,
   });
+
   const currentPageEntries = table.getRowModel().rows.length;
   const totalEntries = data.length;
 
   return (
     <div>
+      <div className="my-6">
+        <FormField
+          placeholder="Search..."
+          value={globalFilter ?? ''}
+          onChange={(event) => setGlobalFilter(event.target.value)}
+          className="max-w-xl"
+        />
+      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -92,46 +107,49 @@ export function DataTable({ columns, data }) {
         </Table>
       </div>
 
-      <div className="flex items-center justify-between space-x-2 py-4">
-        <div className="flex items-center space-x-2">
-          <span className="text-sm text-gray-700">Items per page:</span>
-          <select
-            value={pageSize}
-            onChange={(e) => {
-              setPageSize(Number(e.target.value));
-              table.setPageSize(Number(e.target.value));
-            }}
-            className="border rounded p-1"
-          >
-            {[1, 5, 10, 20, 30, 40, 50].map((size) => (
-              <option key={size} value={size}>
-                {size}
-              </option>
-            ))}
-          </select>
+      <div className="flex items-center justify-between px-4 py-8">
+        <div className="flex items-center justify-between space-x-2 py-4">
+          <div className="flex items-center space-x-2">
+            <span className="text-sm text-indigo-900 font-medium">
+              Items per page:
+            </span>
+            <select
+              value={pageSize}
+              onChange={(e) => {
+                setPageSize(Number(e.target.value));
+                table.setPageSize(Number(e.target.value));
+              }}
+              className="border rounded p-1"
+            >
+              {[1, 5, 10, 20, 30, 40, 50].map((size) => (
+                <option key={size} value={size}>
+                  {size}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-      </div>
-      <span className="text-sm text-gray-700">
-        Showing {currentPageEntries} of {totalEntries} entries
-      </span>
-
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <PrimaryButton
-          icon={<ArrowLeft />}
-          variant={'outline'}
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        />
-        <span className="text-sm text-gray-700">
-          Page {table.getState().pagination.pageIndex + 1} of{' '}
-          {table.getPageCount()}
+        <div className="flex items-center justify-end space-x-2 py-4">
+          <PrimaryButton
+            icon={<ArrowLeft />}
+            variant={'text'}
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          />
+          <span className="text-sm text-indigo-900 font-medium">
+            Page {table.getState().pagination.pageIndex + 1} of{' '}
+            {table.getPageCount()}
+          </span>
+          <PrimaryButton
+            icon={<ArrowRight />}
+            variant={'text'}
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          />
+        </div>
+        <span className="text-sm text-indigo-900 font-medium">
+          Showing {currentPageEntries} of {totalEntries} entries
         </span>
-        <PrimaryButton
-          icon={<ArrowRight />}
-          variant={'outline'}
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        />
       </div>
     </div>
   );
