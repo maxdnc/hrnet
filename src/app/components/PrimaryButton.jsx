@@ -1,10 +1,20 @@
-const PrimaryButton = ({ type, label, className, onClick, icon, variant }) => {
+const PrimaryButton = ({
+  type,
+  label,
+  className,
+  onClick,
+  icon,
+  variant,
+  disabled,
+}) => {
   const baseClasses =
-    'inline-flex items-center justify-center gap-4 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2';
+    'inline-flex items-center justify-center gap-4 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 hover:cursor-pointer';
   const filledClasses =
     'bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500';
   const outlineClasses =
     'border border-indigo-600 text-indigo-600 hover:bg-indigo-100 focus:ring-indigo-500';
+  const disabledClasses =
+    'opacity-20 cursor-not-allowed hover:cursor-not-allowed bg-gray-200 text-gray-600';
 
   const variantClasses = variant === 'outline' ? outlineClasses : filledClasses;
 
@@ -12,10 +22,11 @@ const PrimaryButton = ({ type, label, className, onClick, icon, variant }) => {
     <button
       onClick={onClick}
       type={type}
-      className={`${baseClasses} ${variantClasses} ${className}`}
+      className={`${baseClasses} ${variantClasses} ${className} ${disabled ? disabledClasses : ''}`}
+      disabled={disabled}
     >
       {icon ? <span>{icon}</span> : null}
-      <span>{label}</span>
+      {label ? <span>{label}</span> : null}
     </button>
   );
 };
