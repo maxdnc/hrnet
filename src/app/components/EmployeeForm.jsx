@@ -38,7 +38,7 @@ const EmployeeForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md"
+      className="max-w-md mx-auto mt-4 p-6 bg-white rounded-lg shadow-lg"
     >
       <FormField
         label="First Name"
