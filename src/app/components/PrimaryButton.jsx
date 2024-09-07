@@ -13,10 +13,22 @@ const PrimaryButton = ({
     'bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500';
   const outlineClasses =
     'border border-indigo-600 text-indigo-600 hover:bg-indigo-100 focus:ring-indigo-500';
+  const textClasses =
+    'text-indigo-600 hover:text-indigo-700 focus:ring-indigo-500';
   const disabledClasses =
-    'opacity-20 cursor-not-allowed hover:cursor-not-allowed bg-gray-200 text-gray-600';
+    'opacity-20 cursor-not-allowed hover:cursor-not-allowed  text-gray-600';
 
-  const variantClasses = variant === 'outline' ? outlineClasses : filledClasses;
+  let variantClasses;
+  switch (variant) {
+    case 'outline':
+      variantClasses = outlineClasses;
+      break;
+    case 'text':
+      variantClasses = textClasses;
+      break;
+    default:
+      variantClasses = filledClasses;
+  }
 
   return (
     <button
