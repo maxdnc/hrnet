@@ -5,32 +5,34 @@ import { STATES } from '../constants/state.js';
 import { DEPARTMENTS } from '../constants/departments.js';
 import { DatePicker } from './DatePicker.jsx';
 import PrimaryButton from './PrimaryButton.jsx';
+import useFormStore from '../store/useFormStore.js';
+import useEmployeeStore from '../store/useEmployeeStore.js';
+import { validateEmployeeForm, isFormValid } from '../utils/formValidation';
+import { RotateCcw } from 'lucide-react';
 
 const EmployeeForm = () => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    dateOfBirth: '',
-    startDate: '',
-    street: '',
-    city: '',
-    state: '',
-    zipCode: '',
-    department: '',
-  });
-  console.log(formData);
+  const { formData, setFormData, resetFormData } = useFormStore();
+  const { addEmployee } = useEmployeeStore();
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setFormData(name, value);
+    setErrors((prev) => ({ ...prev, [name]: '' }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    const newErrors = validateEmployeeForm(formData);
+    setErrors(newErrors);
+    if (isFormValid(newErrors)) {
+      addEmployee(formData);
+      resetFormData();
+    }
+  };
+  const handleReset = () => {
+    resetFormData();
+    setErrors({});
   };
 
   return (
@@ -43,12 +45,14 @@ const EmployeeForm = () => {
         name="firstName"
         value={formData.firstName}
         onChange={handleChange}
+        error={errors.firstName}
       />
       <FormField
         label="Last Name"
         name="lastName"
         value={formData.lastName}
         onChange={handleChange}
+        error={errors.lastName}
       />
 
       <DatePicker
@@ -56,12 +60,14 @@ const EmployeeForm = () => {
         name="dateOfBirth"
         value={formData.dateOfBirth}
         onChange={handleChange}
+        error={errors.dateOfBirth}
       />
       <DatePicker
         label="Start Date"
         name="startDate"
         value={formData.startDate}
         onChange={handleChange}
+        error={errors.startDate}
       />
 
       <fieldset className="mb-4 border p-4">
@@ -74,12 +80,14 @@ const EmployeeForm = () => {
             name="street"
             value={formData.street}
             onChange={handleChange}
+            error={errors.street}
           />
           <FormField
             label="City"
             name="city"
             value={formData.city}
             onChange={handleChange}
+            error={errors.city}
           />
           <FormField
             label="State"
@@ -89,12 +97,14 @@ const EmployeeForm = () => {
             onChange={handleChange}
             options={STATES}
             placeholder="Select a state"
+            error={errors.state}
           />
           <FormField
             label="Zip Code"
             name="zipCode"
             value={formData.zipCode}
             onChange={handleChange}
+            error={errors.zipCode}
           />
         </div>
       </fieldset>
@@ -106,9 +116,18 @@ const EmployeeForm = () => {
         onChange={handleChange}
         options={DEPARTMENTS}
         placeholder="Select a department"
+        error={errors.department}
       />
-      <div className="mt-6">
-        <PrimaryButton type="submit" label="Save" />
+      <div className="mt-6 flex gap-4 ">
+        <PrimaryButton type="submit" label="Save" className={'w-full'} />
+        <PrimaryButton
+          type="button"
+          label="Reset"
+          className={'flex-none'}
+          variant={'outline'}
+          icon={<RotateCcw size={22} />}
+          onClick={handleReset}
+        />
       </div>
     </form>
   );
