@@ -8,11 +8,15 @@ const FormField = ({
   onChange,
   options = [],
   placeholder,
+  error,
 }) => {
   return (
     <div className="mb-4">
-      <label htmlFor={name} className="block text-sm font-medium text-gray-700">
-        {label}
+      <label
+        htmlFor={name}
+        className={`block text-sm font-medium text-gray-700 ${error ? 'text-red-400' : ''}`}
+      >
+        {error ? error : label}
       </label>
       {type === 'select' ? (
         <SelectScrollable

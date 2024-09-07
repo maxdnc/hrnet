@@ -26,7 +26,7 @@ import {
 
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-export function DatePicker({ label, onChange, name, value }) {
+export function DatePicker({ label, onChange, name, value, error }) {
   const [date, setDate] = useState(() => {
     return value ? parse(value, 'yyyy-MM-dd', new Date()) : null;
   });
@@ -92,8 +92,11 @@ export function DatePicker({ label, onChange, name, value }) {
 
   return (
     <div className="mb-4">
-      <label htmlFor={name} className="block text-sm font-medium text-gray-700">
-        {label}
+      <label
+        htmlFor={name}
+        className={`block text-sm font-medium text-gray-700 ${error ? 'text-red-400' : ''}`}
+      >
+        {error ? error : label}
       </label>
       <Popover>
         <PopoverTrigger asChild>
