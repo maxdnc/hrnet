@@ -1,3 +1,5 @@
+import { SelectScrollable } from './Selector';
+
 const FormField = ({
   label,
   name,
@@ -5,6 +7,7 @@ const FormField = ({
   value,
   onChange,
   options = [],
+  placeholder,
 }) => {
   return (
     <div className="mb-4">
@@ -12,22 +15,13 @@ const FormField = ({
         {label}
       </label>
       {type === 'select' ? (
-        <select
-          id={name}
-          name={name}
-          value={value}
+        <SelectScrollable
+          options={options}
+          placeholder={placeholder}
           onChange={onChange}
-          className="mt-1 block w-full bg-indigo-50 px-4 py-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-        >
-          {options.map((option) => (
-            <option
-              key={option.abbreviation || option.value}
-              value={option.abbreviation || option.value}
-            >
-              {option.name || option.label}
-            </option>
-          ))}
-        </select>
+          value={value}
+          name={name}
+        />
       ) : (
         <input
           type={type}
