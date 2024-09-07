@@ -4,10 +4,12 @@ import { ArrowUpRight } from 'lucide-react';
 
 const Home = () => {
   return (
-    <div className="px-1 py-8">
+    <div className="py-8">
       <div className="flex items-center flex-col gap-4">
-        <h1 className="text-4xl font-bold">HRnet</h1>
-        <p className="text-gray-600">Welcome to HRnet</p>
+        <div className="shadow-md w-full flex flex-col gap-4 p-8 justify-center items-center">
+          <h1 className="text-4xl font-extrabold">HRnet</h1>
+          <p className="text-gray-600 font-medium">Welcome to HRnet</p>
+        </div>
         <Link
           href="/employees"
           className="mt-4 text-indigo-400 font-medium inline-flex items-center gap-2 hover:underline cursor-pointer group"
@@ -17,7 +19,7 @@ const Home = () => {
             <ArrowUpRight size={16} color="#818cf8" />
           </span>
         </Link>
-        <h2 className="text-2xl font-bold mt-6">Create Employee</h2>
+        <h2 className="text-2xl font-bold ">Create Employee</h2>
       </div>
 
       <EmployeeForm />
