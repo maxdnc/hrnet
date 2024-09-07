@@ -1,7 +1,7 @@
 export const DEPARTMENTS = [
-  { value: 'Sales', label: 'Sales' },
-  { value: 'Marketing', label: 'Marketing' },
-  { value: 'Engineering', label: 'Engineering' },
-  { value: 'Human Resources', label: 'Human Resources' },
-  { value: 'Legal', label: 'Legal' },
+  { id: 'Sales', name: 'Sales' },
+  { id: 'Marketing', name: 'Marketing' },
+  { id: 'Engineering', name: 'Engineering' },
+  { id: 'Human Resources', name: 'Human Resources' },
+  { id: 'Legal', name: 'Legal' },
 ];
