@@ -27,15 +27,9 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 export function DatePicker({ label, onChange, name, value, error }) {
-  const [date, setDate] = useState(() => {
-    return value ? parse(value, 'yyyy-MM-dd', new Date()) : null;
-  });
-  const [year, setYear] = useState(() =>
-    date ? date.getFullYear() : new Date().getFullYear()
-  );
-  const [month, setMonth] = useState(() =>
-    date ? date.getMonth() : new Date().getMonth()
-  );
+  const [date, setDate] = useState(null);
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [month, setMonth] = useState(new Date().getMonth());
 
   const currentDate = new Date();
   const hundredYearsAgo = subYears(currentDate, 100);
@@ -50,6 +44,10 @@ export function DatePicker({ label, onChange, name, value, error }) {
       setDate(parsedDate);
       setYear(parsedDate.getFullYear());
       setMonth(parsedDate.getMonth());
+    } else {
+      setDate(null);
+      setYear(new Date().getFullYear());
+      setMonth(new Date().getMonth());
     }
   }, [value]);
 
@@ -57,6 +55,8 @@ export function DatePicker({ label, onChange, name, value, error }) {
     setDate(newDate);
     if (newDate) {
       onChange({ target: { name, value: format(newDate, 'yyyy-MM-dd') } });
+    } else {
+      onChange({ target: { name, value: '' } });
     }
   };
 
