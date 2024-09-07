@@ -9,6 +9,7 @@ const FormField = ({
   options = [],
   placeholder,
   error,
+  className,
 }) => {
   return (
     <div className="mb-4">
@@ -28,12 +29,13 @@ const FormField = ({
         />
       ) : (
         <input
+          placeholder={placeholder}
           type={type}
           id={name}
           name={name}
           value={value}
           onChange={onChange}
-          className="mt-1 block w-full px-4 py-2 bg-indigo-50 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          className={`mt-1 block w-full px-4 py-2 bg-indigo-50 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ${className}`}
         />
       )}
     </div>
