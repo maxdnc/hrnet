@@ -6,17 +6,17 @@ import { DataTable } from './data-table.jsx';
 import { columns } from './columns.js';
 import { MOCK_DATA_EMPLOYEES } from '../mockData/mockDataEmployees';
 
-const page = () => {
+const EmployeePage = () => {
   const { employees } = useEmployeeStore();
 
   return (
     <div className="max-w-[1640px] mx-auto">
       <Link
         href="/"
-        className="mx-auto px-6 text-xl mt-8 text-indigo-400 font-medium inline-flex items-center gap-3 hover:underline cursor-pointer group"
+        className="mx-auto px-6 text-xl mt-8 text-indigo-600 font-medium inline-flex items-center gap-3 hover:underline cursor-pointer group"
       >
         <span className="transform transition-transform  group-hover:-translate-x-1 ">
-          <ArrowLeft size={22} color="#818cf8" />
+          <ArrowLeft size={22} color="#5046E5" />
         </span>
         <span>Home</span>
       </Link>
@@ -28,4 +28,4 @@ const page = () => {
     </div>
   );
 };
-export default page;
+export default EmployeePage;
