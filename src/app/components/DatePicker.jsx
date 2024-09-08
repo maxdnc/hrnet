@@ -121,6 +121,7 @@ export function DatePicker({ label, onChange, name, value, error }) {
               variant="outline"
               size="icon"
               onClick={() => handleYearChange(year - 1)}
+              disabled={year <= hundredYearsAgo.getFullYear()}
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
@@ -142,10 +143,7 @@ export function DatePicker({ label, onChange, name, value, error }) {
               variant="outline"
               size="icon"
               onClick={() => handleYearChange(year + 1)}
-              disabled={
-                year === currentDate.getFullYear() &&
-                month === currentDate.getMonth()
-              }
+              disabled={year >= currentDate.getFullYear()}
             >
               <ChevronRight className="h-4 w-4" />
             </Button>
