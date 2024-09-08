@@ -114,6 +114,7 @@ export function DataTable({ columns, data }) {
               Items per page:
             </span>
             <select
+              aria-label="Items per page"
               value={pageSize}
               onChange={(e) => {
                 setPageSize(Number(e.target.value));
@@ -135,6 +136,7 @@ export function DataTable({ columns, data }) {
             variant={'text'}
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
+            aria="Previous page"
           />
           <span className="text-sm text-indigo-900 font-medium ml-0 ">
             Page {table.getState().pagination.pageIndex + 1} of{' '}
@@ -145,6 +147,7 @@ export function DataTable({ columns, data }) {
             variant={'text'}
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
+            aria="Next page"
           />
         </div>
         <span className="text-sm text-indigo-900 font-medium">
