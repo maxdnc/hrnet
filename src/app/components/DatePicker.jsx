@@ -120,7 +120,7 @@ export function DatePicker({ label, onChange, name, value, error }) {
             <Button
               variant="outline"
               size="icon"
-              onClick={() => handleMonthChange(-1)}
+              onClick={() => handleYearChange(year - 1)}
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
@@ -141,7 +141,7 @@ export function DatePicker({ label, onChange, name, value, error }) {
             <Button
               variant="outline"
               size="icon"
-              onClick={() => handleMonthChange(1)}
+              onClick={() => handleYearChange(year + 1)}
               disabled={
                 year === currentDate.getFullYear() &&
                 month === currentDate.getMonth()
