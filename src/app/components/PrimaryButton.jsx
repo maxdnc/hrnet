@@ -6,6 +6,7 @@ const PrimaryButton = ({
   icon,
   variant,
   disabled,
+  aria,
 }) => {
   const baseClasses =
     'inline-flex items-center justify-center gap-4 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 hover:cursor-pointer';
@@ -36,6 +37,7 @@ const PrimaryButton = ({
       type={type}
       className={`${baseClasses} ${variantClasses} ${className} ${disabled ? disabledClasses : ''}`}
       disabled={disabled}
+      aria-label={aria ? aria : label}
     >
       {icon ? <span>{icon}</span> : null}
       {label ? <span>{label}</span> : null}
