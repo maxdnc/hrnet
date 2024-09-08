@@ -107,8 +107,8 @@ export function DataTable({ columns, data }) {
         </Table>
       </div>
 
-      <div className="flex items-center justify-between px-4 py-8">
-        <div className="flex items-center justify-between space-x-2 py-4">
+      <div className="flex flex-col items-center justify-between px-4 py-8 sm:flex-row">
+        <div className="flex items-center justify-between space-x-2 ">
           <div className="flex items-center space-x-2">
             <span className="text-sm text-indigo-900 font-medium">
               Items per page:
@@ -129,14 +129,14 @@ export function DataTable({ columns, data }) {
             </select>
           </div>
         </div>
-        <div className="flex items-center justify-end space-x-2 py-4">
+        <div className="flex items-center justify-end py-4">
           <PrimaryButton
             icon={<ArrowLeft />}
             variant={'text'}
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           />
-          <span className="text-sm text-indigo-900 font-medium">
+          <span className="text-sm text-indigo-900 font-medium ml-0 ">
             Page {table.getState().pagination.pageIndex + 1} of{' '}
             {table.getPageCount()}
           </span>
