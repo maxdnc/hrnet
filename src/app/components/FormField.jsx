@@ -26,6 +26,7 @@ const FormField = ({
           onChange={onChange}
           value={value}
           name={name}
+          id={name}
         />
       ) : (
         <input
